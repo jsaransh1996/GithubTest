@@ -1,26 +1,43 @@
-// import fetch from "node-fetch";
-
 const fetch = require("node-fetch");
 
 let host = "https://api.github.com";
 let org = "chandrakiranks";
 let repo = "git-util";
+let branchesURL = `${host}/repos/${org}/${repo}/branches`;
 
-let branches = await fetch(`${host}/repos/${org}/${repo}/branches`);
+getReponse(branchesURL).then((branches) => {
+  console.log(branches);
+  let master = branches.filter((branch) => branch["name"] === "master")[0];
+  let latestCommit = master["commit"]["sha"];
 
-let branchesJSON = await branches.json();
-let master = branchesJSON.filter((branch) => branch["name"] === "master")[0];
-let latestCommit = master["commit"]["sha"];
+  let commitURL = `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`;
 
-let commitDetails = await fetch(
-  `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`
-);
+  getReponse(commitURL).then((commitDetails) => {
+    console.log(commitDetails);
+    let message = commitDetails["message"];
+    let authorName = commitDetails["author"]["name"];
+    var proceed = true;
+    if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
+      proceed = false;
+    }
+    console.log(proceed);
+  });
+});
 
-let commitDetailsJSON = await commitDetails.json();
-let message = commitDetailsJSON["message"];
-let authorName = commitDetailsJSON["author"]["name"];
-var proceed = true;
-if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
-  proceed = false;
+function getReponse(url) {
+  return fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data && data.length && data.length > 0) {
+        return Promise.resolve(data);
+      } else {
+        Promise.reject(new Error("API - Check the API URL")).then(
+          resolved,
+          rejected
+        );
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
-console.log(proceed);
