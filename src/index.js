@@ -6,10 +6,10 @@ let host = args[0];
 
 let org = "Flipkart";
 let repo = "fk-ios-app";
-let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
+let masterURL = `${host}/repos/${org}/${repo}/branches`;
 console.log(masterURL);
 
-getDummyReponse(masterURL).then((masterData) => {
+getReponse(masterURL).then((masterData) => {
   console.log(masterData);
   // let message = masterData["commit"]["commit"]["mesage"];
   // let authorName = masterData["commit"]["commit"]["author"]["name"];
