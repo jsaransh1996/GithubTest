@@ -41,6 +41,8 @@ function getReponse(url) {
   return fetch(url)
     .then((res) => res.json())
     .then((data) => {
+      console.log("Data");
+      console.log(data);
       if (data && data.length && data.length > 0) {
         return Promise.resolve(data);
       } else {
