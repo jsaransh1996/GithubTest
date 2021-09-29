@@ -11,11 +11,9 @@ let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
 getReponse(masterURL).then((masterData) => {
   console.log(masterData);
   let message = masterData["commit"]["commit"]["mesage"];
-  let author = masterData["commit"]["commit"]["author"]["name"];
+  let authorName = masterData["commit"]["commit"]["author"]["name"];
   console.log(message);
 
-  let message = commitDetails["message"];
-  let authorName = commitDetails["author"]["name"];
   var proceed = true;
   if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
     proceed = false;
