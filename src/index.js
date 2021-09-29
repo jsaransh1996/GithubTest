@@ -6,7 +6,7 @@ let host = args[0];
 
 let org = "Flipkart";
 let repo = "fk-ios-app";
-let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
+let masterURL = `${host}/repos/${org}/${repo}/branches`;
 console.log(masterURL);
 
 getDummyReponse(masterURL).then((masterData) => {
@@ -58,11 +58,12 @@ function getReponse(url) {
 function getDummyReponse(url) {
   return fetch(url)
     .then((res) => {
-      let data = JSON.parse(res);
-      console.log("Came");
-      console.log(data);
+      console.log("res");
       console.log(res);
-      console.log("exit");
+      let data = JSON.parse(res);
+      console.log("data");
+      console.log(data);
+
       if (data && data.length && data.length > 0) {
         return Promise.resolve(data);
       } else {
