@@ -1,8 +1,11 @@
 const fetch = require("node-fetch");
 
-let host = "https://api.github.com";
-let org = "chandrakiranks";
-let repo = "git-util";
+// let host = "https://api.github.com";
+let host = process.env.GIT_REPO;
+console.log(host);
+
+let org = "Flipkart";
+let repo = "fk-ios-app";
 let branchesURL = `${host}/repos/${org}/${repo}/branches`;
 
 getReponse(branchesURL).then((branches) => {
