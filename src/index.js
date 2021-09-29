@@ -9,18 +9,18 @@ let repo = "fk-ios-app";
 let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
 console.log(masterURL);
 
-getReponse(masterURL).then((masterData) => {
+getDummyReponse(masterURL).then((masterData) => {
   console.log(masterData);
-  let message = masterData["commit"]["commit"]["mesage"];
-  let authorName = masterData["commit"]["commit"]["author"]["name"];
-  console.log(message);
+  // let message = masterData["commit"]["commit"]["mesage"];
+  // let authorName = masterData["commit"]["commit"]["author"]["name"];
+  // console.log(message);
 
-  var proceed = true;
-  if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
-    proceed = false;
-    console.log(proceed);
-  }
-  console.log(proceed);
+  // var proceed = true;
+  // if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
+  //   proceed = false;
+  //   console.log(proceed);
+  // }
+  // console.log(proceed);
 
   // let latestCommit = masterData["commit"]["sha"];
   // let commitURL = `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`;
@@ -41,6 +41,28 @@ function getReponse(url) {
   return fetch(url)
     .then((res) => res.json())
     .then((data) => {
+      if (data && data.length && data.length > 0) {
+        return Promise.resolve(data);
+      } else {
+        Promise.reject(new Error("API - Check the API URL")).then(
+          resolved,
+          rejected
+        );
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+function getDummyReponse(url) {
+  return fetch(url)
+    .then((res) => {
+      let data = JSON.parse(res);
+      console.log("Came");
+      console.log(data);
+      console.log(res);
+      console.log("exit");
       if (data && data.length && data.length > 0) {
         return Promise.resolve(data);
       } else {
