@@ -1,4 +1,6 @@
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
+
+const fetch = require("node-fetch");
 
 let host = "https://api.github.com";
 let org = "chandrakiranks";
