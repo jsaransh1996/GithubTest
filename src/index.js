@@ -42,6 +42,8 @@ function getReponse(url) {
     .then((res) => res.json())
     .then((data) => {
       console.log("Data");
+      console.log(data);
+      console.log(data["commit"]);
       let message = data["commit"]["commit"]["mesage"];
       console.log(message);
 
