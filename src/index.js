@@ -13,7 +13,8 @@ console.log(masterURL);
 request.get(masterURL, (error, response, body) => {
   let json = JSON.parse(body);
   console.log(json);
-  console.log(json.commit.commit.mesage);
+  console.log(json.commit.commit.message);
+  console.log(json.commit.commit.author);
 });
 
 // getReponse(masterURL).then((masterData) => {
