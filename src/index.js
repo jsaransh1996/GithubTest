@@ -1,7 +1,8 @@
 const fetch = require("node-fetch");
 
 // let host = "https://api.github.com";
-let host = process.env.GIT_REPO;
+let args = process.argv.slice(2);
+let host = args[0];
 console.log(host);
 
 let org = "Flipkart";
