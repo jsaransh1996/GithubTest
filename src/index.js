@@ -12,9 +12,9 @@ request.get(masterURL, (error, response, body) => {
   let json = JSON.parse(body);
   console.log(json);
   let message = json.commit.commit.message;
-  let author = json.commit.commit.author.name;
+  let authorName = json.commit.commit.author.name;
   console.log(message);
-  console.log(author);
+  console.log(authorName);
 
   var proceed = true;
   if (message.startsWith("Bumped app version") && authorName == "Jenkins") {
