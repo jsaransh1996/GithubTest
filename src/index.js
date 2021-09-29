@@ -6,19 +6,20 @@ let repo = "git-util";
 let branchesURL = `${host}/repos/${org}/${repo}/branches`;
 
 getReponse(branchesURL).then((branches) => {
-  console.log(branches);
+  // console.log(branches);
   let master = branches.filter((branch) => branch["name"] === "master")[0];
   let latestCommit = master["commit"]["sha"];
 
   let commitURL = `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`;
 
   getReponse(commitURL).then((commitDetails) => {
-    console.log(commitDetails);
+    // console.log(commitDetails);
     let message = commitDetails["message"];
     let authorName = commitDetails["author"]["name"];
     var proceed = true;
     if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
       proceed = false;
+      console.log(proceed);
     }
     console.log(proceed);
   });
