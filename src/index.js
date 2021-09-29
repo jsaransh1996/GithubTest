@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const request = require("request");
 
 let args = process.argv.slice(2);
