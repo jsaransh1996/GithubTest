@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const request = require("request");
 
 // let host = "https://api.github.com";
 let args = process.argv.slice(2);
@@ -9,33 +10,41 @@ let repo = "fk-ios-app";
 let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
 console.log(masterURL);
 
-getReponse(masterURL).then((masterData) => {
-  console.log(masterData);
-  // let message = masterData["commit"]["commit"]["mesage"];
-  // let authorName = masterData["commit"]["commit"]["author"]["name"];
-  // console.log(message);
-
-  // var proceed = true;
-  // if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
-  //   proceed = false;
-  //   console.log(proceed);
-  // }
-  // console.log(proceed);
-
-  // let latestCommit = masterData["commit"]["sha"];
-  // let commitURL = `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`;
-  // getReponse(commitURL).then((commitDetails) => {
-  //   console.log(commitDetails);
-  //   let message = commitDetails["message"];
-  //   let authorName = commitDetails["author"]["name"];
-  //   var proceed = true;
-  //   if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
-  //     proceed = false;
-  //     console.log(proceed);
-  //   }
-  //   console.log(proceed);
-  // });
+request.get(masterURL, (error, response, body) => {
+  let json = JSON.parse(body);
+  console.log(json);
 });
+
+// getReponse(masterURL).then((masterData) => {
+//   console.log(masterData);
+// });
+// getReponse(masterURL).then((masterData) => {
+//   console.log(masterData);
+//   // let message = masterData["commit"]["commit"]["mesage"];
+//   // let authorName = masterData["commit"]["commit"]["author"]["name"];
+//   // console.log(message);
+
+//   // var proceed = true;
+//   // if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
+//   //   proceed = false;
+//   //   console.log(proceed);
+//   // }
+//   // console.log(proceed);
+
+//   // let latestCommit = masterData["commit"]["sha"];
+//   // let commitURL = `${host}/repos/${org}/${repo}/git/commits/${latestCommit}`;
+//   // getReponse(commitURL).then((commitDetails) => {
+//   //   console.log(commitDetails);
+//   //   let message = commitDetails["message"];
+//   //   let authorName = commitDetails["author"]["name"];
+//   //   var proceed = true;
+//   //   if (message.startsWith("Bumped app version") && authorName == "ghe-admin") {
+//   //     proceed = false;
+//   //     console.log(proceed);
+//   //   }
+//   //   console.log(proceed);
+//   // });
+// });
 
 function getReponse(url) {
   return fetch(url)
@@ -48,29 +57,6 @@ function getReponse(url) {
       console.log(message);
 
       Promise.resolve(message);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}
-
-function getDummyReponse(url) {
-  return fetch(url)
-    .then((res) => {
-      console.log("res");
-      console.log(res);
-      let data = JSON.parse(res);
-      console.log("data");
-      console.log(data);
-
-      if (data && data.length && data.length > 0) {
-        return Promise.resolve(data);
-      } else {
-        Promise.reject(new Error("API - Check the API URL")).then(
-          resolved,
-          rejected
-        );
-      }
     })
     .catch((err) => {
       console.error(err);
