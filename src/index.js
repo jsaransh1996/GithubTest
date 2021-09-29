@@ -42,8 +42,10 @@ function getReponse(url) {
     .then((res) => res.json())
     .then((data) => {
       console.log("Data");
-      console.log(data);
-      Promise.resolve(data);
+      let message = data["commit"]["commit"]["mesage"];
+      console.log(message);
+
+      Promise.resolve(message);
     })
     .catch((err) => {
       console.error(err);
