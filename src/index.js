@@ -43,14 +43,7 @@ function getReponse(url) {
     .then((data) => {
       console.log("Data");
       console.log(data);
-      if (data && data.length && data.length > 0) {
-        return Promise.resolve(data);
-      } else {
-        Promise.reject(new Error("API - Check the API URL")).then(
-          resolved,
-          rejected
-        );
-      }
+      Promise.resolve(data);
     })
     .catch((err) => {
       console.error(err);
