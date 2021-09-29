@@ -7,6 +7,7 @@ let host = args[0];
 let org = "Flipkart";
 let repo = "fk-ios-app";
 let masterURL = `${host}/repos/${org}/${repo}/branches/master`;
+console.log(masterURL);
 
 getReponse(masterURL).then((masterData) => {
   console.log(masterData);
